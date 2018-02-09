@@ -6,9 +6,6 @@ import BookShelf from './BookShelf'
 class BooksApp extends React.Component {
   state = {
     books: [],
-    currentlyReadingBooks: [],
-    wantToReadBooks: [],
-    readBooks: [],
     /**
      * TODO: Instead of using this state variable to keep track of which page
      * we're on, use the URL in the browser's address bar. This will ensure that
@@ -21,19 +18,20 @@ class BooksApp extends React.Component {
   componentDidMount() {
     BooksAPI.getAll().then((books) => {
       this.setState( {
-        books: books,
-        currentlyReadingBooks: books.filter( (book) => book.shelf === "currentlyReading"),
-        wantToReadBooks: books.filter( (book) => book.shelf === "wantToRead"),
-        readBooks: books.filter( (book) => book.shelf === "read")
+        books: books
       })
       console.log(this.state.books)
-      console.log(this.state.currentlyReadingBooks)
-      console.log(this.state.wantToReadBooks)
-      console.log(this.state.readBooks)
     })
   }
 
   render() {
+
+    const { books, showSearchPage } = this.state
+
+    const currentlyReadingBooks = books.filter( (book) => book.shelf === "currentlyReading")
+    const wantToReadBooks = books.filter( (book) => book.shelf === "wantToRead")
+    const readBooks = books.filter( (book) => book.shelf === "read")
+
     return (
       <div className="app">
         {this.state.showSearchPage ? (
@@ -64,9 +62,9 @@ class BooksApp extends React.Component {
             </div>
             <div className="list-books-content">
               <div>
-                <BookShelf title='Currently Reading' bookDicts={this.state.currentlyReadingBooks}></BookShelf>
-                <BookShelf title='Want To Read' bookDicts={this.state.wantToReadBooks}></BookShelf>
-                <BookShelf title='Read' bookDicts={this.state.readBooks}></BookShelf>
+                <BookShelf title='Currently Reading' bookDicts={currentlyReadingBooks}></BookShelf>
+                <BookShelf title='Want To Read' bookDicts={wantToReadBooks}></BookShelf>
+                <BookShelf title='Read' bookDicts={readBooks}></BookShelf>
               </div>
             </div>
             <div className="open-search">

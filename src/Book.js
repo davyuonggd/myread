@@ -28,7 +28,7 @@ class Book extends Component {
         </div>
         <div className="book-title">{ bookDict.title }</div>
         <div className="book-authors">
-          { bookDict.authors[0] }
+          { (bookDict.authors.length !== 0) && (bookDict.authors[0]) }
         </div>
       </div>
     )
