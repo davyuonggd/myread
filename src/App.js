@@ -24,6 +24,10 @@ class BooksApp extends React.Component {
     })
   }
 
+  updateBook(book) {
+    console.log(book)
+  }
+
   render() {
 
     const { books, showSearchPage } = this.state
@@ -31,6 +35,10 @@ class BooksApp extends React.Component {
     const currentlyReadingBooks = books.filter( (book) => book.shelf === "currentlyReading")
     const wantToReadBooks = books.filter( (book) => book.shelf === "wantToRead")
     const readBooks = books.filter( (book) => book.shelf === "read")
+
+    const onUpdatedBook = (book) => {
+      this.updateBook(book)
+    }
 
     return (
       <div className="app">
@@ -62,9 +70,23 @@ class BooksApp extends React.Component {
             </div>
             <div className="list-books-content">
               <div>
-                <BookShelf title='Currently Reading' bookDicts={currentlyReadingBooks}></BookShelf>
-                <BookShelf title='Want To Read' bookDicts={wantToReadBooks}></BookShelf>
-                <BookShelf title='Read' bookDicts={readBooks}></BookShelf>
+                <BookShelf
+                  title='Currently Reading'
+                  bookDicts={currentlyReadingBooks}
+                  onUpdatedBook={onUpdatedBook}>
+                </BookShelf>
+
+                <BookShelf
+                  title='Want To Read'
+                  bookDicts={wantToReadBooks}
+                  onUpdatedBook={onUpdatedBook}>
+                </BookShelf>
+
+                <BookShelf
+                  title='Read'
+                  bookDicts={readBooks}
+                  onUpdatedBook={onUpdatedBook}>
+                </BookShelf>
               </div>
             </div>
             <div className="open-search">

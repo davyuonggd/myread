@@ -6,6 +6,20 @@ class Book extends Component {
     bookDict: PropTypes.object.isRequired
   }
 
+  constructor(props) {
+    super(props)
+    this.onSelectShelf = this.onSelectShelf.bind(this)
+  }
+
+  onSelectShelf(event) {
+    const selectedShelf = event.target.value
+    // console.log(selectedShelf)
+    const { bookDict } = this.props
+    bookDict.shelf = selectedShelf
+    // console.log(this.props.bookDict)
+    this.props.onUpdatedBook(bookDict)
+  }
+
   render() {
     const { bookDict } = this.props
 
@@ -17,7 +31,7 @@ class Book extends Component {
             style={{ width: 128, height: 193, backgroundImage: `url(${ bookDict.imageLinks.thumbnail })` }}>
           </div>
           <div className="book-shelf-changer">
-            <select>
+            <select value={bookDict.shelf} onChange={this.onSelectShelf}>
               <option value="none" disabled>Move to...</option>
               <option value="currentlyReading">Currently Reading</option>
               <option value="wantToRead">Want to Read</option>
