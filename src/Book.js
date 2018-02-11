@@ -6,12 +6,7 @@ class Book extends Component {
     bookDict: PropTypes.object.isRequired
   }
 
-  constructor(props) {
-    super(props)
-    this.onSelectShelf = this.onSelectShelf.bind(this)
-  }
-
-  onSelectShelf(event) {
+  onSelectShelf = (event) => {
     const selectedShelf = event.target.value
     // console.log(selectedShelf)
     const { bookDict } = this.props
