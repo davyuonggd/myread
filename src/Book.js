@@ -3,16 +3,17 @@ import PropTypes from 'prop-types'
 
 class Book extends Component {
   static propTypes = {
-    bookDict: PropTypes.object.isRequired
+    bookDict: PropTypes.object.isRequired,
+    onUpdatedBook: PropTypes.func.isRequired
   }
 
   onSelectShelf = (event) => {
     const selectedShelf = event.target.value
     // console.log(selectedShelf)
-    const { bookDict } = this.props
+    const { bookDict, onUpdatedBook } = this.props
     bookDict.shelf = selectedShelf
     // console.log(this.props.bookDict)
-    this.props.onUpdatedBook(bookDict)
+    onUpdatedBook(bookDict)
   }
 
   render() {
