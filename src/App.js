@@ -24,13 +24,21 @@ class BooksApp extends React.Component {
     })
   }
 
-  updateBook(book) {
-    console.log(book)
-    console.log(this.state.books)
-    const index = this.state.books.findIndex(b => b.id === book.id)
-    this.state.books[index] = book
-    const updatedBooks = this.state.books
-    console.log(index)
+  updatedBooks = (book) => {
+    const currentBooks = this.state.books
+    const index = currentBooks.findIndex(b => b.id === book.id)
+    if (index < 0) {
+      return null
+    }
+    currentBooks[index] = book
+    return currentBooks
+  }
+
+  updateBooksStateWithUpdatedBook = (book) => {
+    const updatedBooks = this.updatedBooks(book)
+    if (updatedBooks === null) {
+      return
+    }
     this.setState({
       books: updatedBooks
     })
@@ -45,7 +53,7 @@ class BooksApp extends React.Component {
     const readBooks = books.filter( (book) => book.shelf === "read")
 
     const onUpdatedBook = (book) => {
-      this.updateBook(book)
+      this.updateBooksStateWithUpdatedBook(book)
     }
 
     return (
