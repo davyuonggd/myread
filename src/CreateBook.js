@@ -1,8 +1,39 @@
 import React, { Component } from 'react'
 import { Link } from 'react-router-dom'
+import * as BooksAPI from './BooksAPI'
+// import escapeRegExp from 'escape-string-regexp'
+// import sortBy from 'sort-by'
 
 class CreateBook extends Component {
+
+  state = {
+    query: ''
+  }
+
+  searchBooksWithSearchTerm = (searchTerm) => {
+    console.log(searchTerm)
+    BooksAPI.search(searchTerm).then((foundBooks)=>{
+      console.log(foundBooks)
+    })
+  }
+
+  updateQuery = (query) => {
+    this.setState({ query: query.trim() })
+  }
+
+  clearQuery = () => {
+    this.setState({ query: '' })
+  }
+
   render() {
+    const { query } = this.state
+
+    let foundBooks
+
+    if (query) {
+      this.searchBooksWithSearchTerm(query)
+    }
+
     return (
       <div className="search-books">
         <div className="search-books-bar">
@@ -16,7 +47,12 @@ class CreateBook extends Component {
               However, remember that the BooksAPI.search method DOES search by title or author. So, don't worry if
               you don't find a specific author or title. Every search is limited by search terms.
             */}
-            <input type="text" placeholder="Search by title or author"/>
+            <input
+              type="text"
+              placeholder="Search by title or author"
+              value={query}
+              onChange={(event)=>this.updateQuery(event.target.value)}
+              />
 
           </div>
         </div>
