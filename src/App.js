@@ -26,6 +26,14 @@ class BooksApp extends React.Component {
 
   updateBook(book) {
     console.log(book)
+    console.log(this.state.books)
+    const index = this.state.books.findIndex(b => b.id === book.id)
+    this.state.books[index] = book
+    const updatedBooks = this.state.books
+    console.log(index)
+    this.setState({
+      books: updatedBooks
+    })
   }
 
   render() {
