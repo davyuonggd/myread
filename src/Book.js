@@ -18,6 +18,9 @@ class Book extends Component {
 
   render() {
     const { bookDict } = this.props
+    const authors = bookDict['authors']
+    console.log('authors: ', authors)
+    console.log('bookTitle: ', bookDict.title)
 
     return (
       <div className="book">
@@ -36,10 +39,15 @@ class Book extends Component {
             </select>
           </div>
         </div>
-        <div className="book-title">{ bookDict.title }</div>
-        <div className="book-authors">
-          { (bookDict.authors.length !== 0) && (bookDict.authors[0]) }
+        <div className="book-title">{ bookDict.title }
         </div>
+        { //check authors and display multiple authors
+          (Array.isArray(authors)) && (authors.map((author) => (
+            <div key={author} className="book-authors">
+              {author}
+            </div>
+          )))
+        }
       </div>
     )
   }
