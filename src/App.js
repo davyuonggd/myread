@@ -30,12 +30,18 @@ class BooksApp extends React.Component {
   }
 
   updateBooksStateWithUpdatedBook = (book) => {
-    const updatedBooks = this.updatedBooks(book)
-    if (updatedBooks === null) {
-      return
-    }
-    this.setState({
-      books: updatedBooks
+    const shelf = book.shelf
+
+    //update the book's shelf on the server
+    BooksAPI.update(book, shelf).then((response) => {
+      console.log('update call response: ', response)
+      const updatedBooks = this.updatedBooks(book)
+      if (updatedBooks === null) {
+        return
+      }
+      this.setState({
+        books: updatedBooks
+      })
     })
   }
 
