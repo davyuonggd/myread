@@ -1,10 +1,15 @@
 import React, { Component } from 'react'
 import { Link } from 'react-router-dom'
 import * as BooksAPI from './BooksAPI'
+import PropTypes from 'prop-types'
 // import escapeRegExp from 'escape-string-regexp'
 // import sortBy from 'sort-by'
+import Book from './Book'
 
 class CreateBook extends Component {
+  static propTypes = {
+    onCreatedBook: PropTypes.func.isRequired
+  }
 
   state = {
     foundBooks: []
@@ -32,6 +37,7 @@ class CreateBook extends Component {
   }
 
   render() {
+    const { onCreatedBook } = this.props
     const { foundBooks } = this.state
     console.log('foundBooks to render: ', foundBooks)
     return (
@@ -60,26 +66,7 @@ class CreateBook extends Component {
               (foundBooks.length !== 0) && (
                 foundBooks.map( (bookDict) => (
                   <li key={bookDict.id}>
-                    <div className="book">
-                      <div className="book-top">
-                        <div
-                          className="book-cover"
-                          style={{ width: 128, height: 193, backgroundImage: `url(${ bookDict.imageLinks.thumbnail })` }}>
-                        </div>
-                        <div className="book-shelf-changer">
-                          <select value='none'>
-                            <option value="none" disabled>Move to...</option>
-                            <option value="currentlyReading">Currently Reading</option>
-                            <option value="wantToRead">Want to Read</option>
-                            <option value="read">Read</option>
-                            <option value="none">None</option>
-                          </select>
-                        </div>
-                      </div>
-                      <div className="book-title">{ bookDict.title }</div>
-                      <div className="book-authors">
-                      </div>
-                    </div>
+                    <Book bookDict={bookDict} onUpdatedBook={onCreatedBook}></Book>
                   </li>
                 ))
               )

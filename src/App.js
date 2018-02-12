@@ -20,7 +20,7 @@ class BooksApp extends React.Component {
   }
 
   updatedBooks = (book) => {
-    const currentBooks = this.state.books
+    let currentBooks = this.state.books
     const index = currentBooks.findIndex(b => b.id === book.id)
     if (index < 0) {
       return null
@@ -39,6 +39,12 @@ class BooksApp extends React.Component {
     })
   }
 
+  updateBooksStateWithCreatedBook = (book) => {
+    let currentBooks = this.state.books
+    currentBooks.push(book)
+    this.setState({books: currentBooks})
+  }
+
   render() {
     return (
       <div className="app">
@@ -48,7 +54,7 @@ class BooksApp extends React.Component {
           )}>
         </Route>
         <Route path='/create' render={({history}) => (
-            <CreateBook>
+            <CreateBook onCreatedBook={this.updateBooksStateWithCreatedBook}>
             </CreateBook>
           )}>
         </Route>
