@@ -15,7 +15,6 @@ class BooksApp extends React.Component {
       this.setState( {
         books: books
       })
-      console.log(this.state.books)
     })
   }
 
@@ -34,7 +33,7 @@ class BooksApp extends React.Component {
 
     //update the book's shelf on the server
     BooksAPI.update(book, shelf).then((response) => {
-      console.log('update call response: ', response)
+      // console.log('update call response: ', response)
       const updatedBooks = this.updatedBooks(book)
       if (updatedBooks === null) {
         return
@@ -50,7 +49,7 @@ class BooksApp extends React.Component {
     let currentBooks = this.state.books
 
     BooksAPI.update(book, shelf).then((response) => {
-      console.log('update call response: ', response)
+      // console.log('update call response: ', response)
       currentBooks.push(book)
       this.setState({books: currentBooks})
     })

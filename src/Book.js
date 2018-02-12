@@ -19,8 +19,8 @@ class Book extends Component {
   render() {
     const { bookDict } = this.props
     const authors = bookDict['authors']
-    console.log('authors: ', authors)
-    console.log('bookTitle: ', bookDict.title)
+    // console.log('authors: ', authors)
+    // console.log('bookTitle: ', bookDict.title)
 
     return (
       <div className="book">
