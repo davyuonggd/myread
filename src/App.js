@@ -59,7 +59,7 @@ class BooksApp extends React.Component {
             </ListBooks>
           )}>
         </Route>
-        <Route path='/create' render={({history}) => (
+        <Route path='/search' render={({history}) => (
             <CreateBook onCreatedBook={this.updateBooksStateWithCreatedBook}>
             </CreateBook>
           )}>
