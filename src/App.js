@@ -46,9 +46,14 @@ class BooksApp extends React.Component {
   }
 
   updateBooksStateWithCreatedBook = (book) => {
+    const shelf = book.shelf
     let currentBooks = this.state.books
-    currentBooks.push(book)
-    this.setState({books: currentBooks})
+
+    BooksAPI.update(book, shelf).then((response) => {
+      console.log('update call response: ', response)
+      currentBooks.push(book)
+      this.setState({books: currentBooks})
+    })
   }
 
   render() {
