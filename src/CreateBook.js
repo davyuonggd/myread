@@ -6,7 +6,8 @@ import Book from './Book'
 
 class CreateBook extends Component {
   static propTypes = {
-    onCreatedBook: PropTypes.func.isRequired
+    onCreatedBook: PropTypes.func.isRequired,
+    currentBooks: PropTypes.array.isRequired
   }
 
   state = {
@@ -18,15 +19,15 @@ class CreateBook extends Component {
   }
 
   searchBooksWithSearchTerm = (searchTerm) => {
-    console.log('searchTerm: ', searchTerm)
+    // console.log('searchTerm: ', searchTerm)
     if (!searchTerm) {
       this.clearFoundBooks()
       return
     }
     BooksAPI.search(searchTerm).then((response) => {
-      console.log('response from search: ', response)
+      // console.log('response from search: ', response)
       if (response.error) {
-        console.log('error: ', response.error)
+        // console.log('error: ', response.error)
         this.clearFoundBooks()
         return
       }
@@ -34,10 +35,29 @@ class CreateBook extends Component {
     })
   }
 
+  shelfOfFoundBookInCurrentBooks = (book) => {
+    const currentBooks = this.props.currentBooks
+    const index = currentBooks.findIndex(b => b.id === book.id)
+    if (index < 0) {
+      return 'none'
+    }
+    const shelf = currentBooks[index].shelf
+    return shelf
+  }
+
+  updateShelvesOfFoundBooks = (foundBooks) => {
+    foundBooks.map((book) => {
+      const shelf = this.shelfOfFoundBookInCurrentBooks(book)
+      book.shelf = shelf
+    })
+  }
+
   render() {
-    const { onCreatedBook } = this.props
-    const { foundBooks } = this.state
-    console.log('foundBooks to render: ', foundBooks)
+    const { onCreatedBook, currentBooks } = this.props
+    let foundBooks = this.state.foundBooks
+    // console.log('foundBooks to render: ', foundBooks)
+    this.updateShelvesOfFoundBooks(foundBooks)
+
     return (
       <div className="search-books">
         <div className="search-books-bar">

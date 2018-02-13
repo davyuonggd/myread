@@ -56,15 +56,17 @@ class BooksApp extends React.Component {
   }
 
   render() {
+    const { books } = this.state
+
     return (
       <div className="app">
         <Route exact path='/' render={()=>(
-            <ListBooks books={this.state.books} onUpdatedBook={this.updateBooksStateWithUpdatedBook}>
+            <ListBooks books={books} onUpdatedBook={this.updateBooksStateWithUpdatedBook}>
             </ListBooks>
           )}>
         </Route>
         <Route path='/search' render={({history}) => (
-            <CreateBook onCreatedBook={this.updateBooksStateWithCreatedBook}>
+            <CreateBook onCreatedBook={this.updateBooksStateWithCreatedBook} currentBooks={books}>
             </CreateBook>
           )}>
         </Route>
