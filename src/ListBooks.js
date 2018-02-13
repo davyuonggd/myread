@@ -16,6 +16,11 @@ class ListBooks extends Component {
     const wantToReadBooks = books.filter( (book) => book.shelf === "wantToRead")
     const readBooks = books.filter( (book) => book.shelf === "read")
 
+    const shelves = [
+      {id: 'currentlyReading', title: 'Currently Reading', books: currentlyReadingBooks},
+      {id: 'wantToRead', title: 'Want To Read', books: wantToReadBooks},
+      {id: 'read', title: 'Read', books: readBooks}
+    ]
     return (
       <div className="list-books">
         <div className="list-books-title">
@@ -23,23 +28,16 @@ class ListBooks extends Component {
         </div>
         <div className="list-books-content">
           <div>
-            <BookShelf
-              title='Currently Reading'
-              bookDicts={currentlyReadingBooks}
-              onUpdatedBook={onUpdatedBook}>
-            </BookShelf>
-
-            <BookShelf
-              title='Want To Read'
-              bookDicts={wantToReadBooks}
-              onUpdatedBook={onUpdatedBook}>
-            </BookShelf>
-
-            <BookShelf
-              title='Read'
-              bookDicts={readBooks}
-              onUpdatedBook={onUpdatedBook}>
-            </BookShelf>
+            {
+              shelves.map((shelf)=>(
+                <BookShelf
+                  key={shelf.id}
+                  title={shelf.title}
+                  bookDicts={shelf.books}
+                  onUpdatedBook={onUpdatedBook}>
+                </BookShelf>
+              ))
+            }
           </div>
         </div>
         <div className="open-search">
