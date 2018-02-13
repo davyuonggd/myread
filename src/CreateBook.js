@@ -50,11 +50,12 @@ class CreateBook extends Component {
     foundBooks.map((book) => {
       const shelf = this.shelfOfFoundBookInCurrentBooks(book)
       book.shelf = shelf
+      return true
     })
   }
 
   render() {
-    const { onCreatedBook, currentBooks } = this.props
+    const { onCreatedBook } = this.props
     let foundBooks = this.state.foundBooks
     // console.log('foundBooks to render: ', foundBooks)
     this.updateShelvesOfFoundBooks(foundBooks)
