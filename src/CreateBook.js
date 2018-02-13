@@ -1,5 +1,6 @@
 import React, { Component } from 'react'
 import { Link } from 'react-router-dom'
+import { DebounceInput } from 'react-debounce-input'
 import * as BooksAPI from './BooksAPI'
 import PropTypes from 'prop-types'
 import Book from './Book'
@@ -71,11 +72,12 @@ class CreateBook extends Component {
               However, remember that the BooksAPI.search method DOES search by title or author. So, don't worry if
               you don't find a specific author or title. Every search is limited by search terms.
             */}
-            <input
+            <DebounceInput
+              debounceTimeout={500}
               type="text"
               placeholder="Search by title or author"
-              onChange={(event)=>this.searchBooksWithSearchTerm(event.target.value)}
-              />
+              onChange={(event)=>this.searchBooksWithSearchTerm(event.target.value)}>
+            </DebounceInput>
           </div>
         </div>
         <div className="search-books-results">
