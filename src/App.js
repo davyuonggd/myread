@@ -51,7 +51,14 @@ class BooksApp extends React.Component {
 
     BooksAPI.update(book, shelf).then((response) => {
       // console.log('update call response: ', response)
-      currentBooks.push(book)
+      //check if new book is already in state's books
+      const index = currentBooks.findIndex(b => b.id === book.id)
+      if (index < 0) { //new book is not in state's books, then add it in
+        currentBooks.push(book)
+      }
+      else { //new book is in state's book, update the existing book's shelf
+        currentBooks[index].shelf = shelf
+      }
       this.setState({books: currentBooks})
     })
   }
