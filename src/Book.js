@@ -42,15 +42,8 @@ class Book extends Component {
             </select>
           </div>
         </div>
-        <div className="book-title">{ bookDict.title }
-        </div>
-        { //check authors and display multiple authors
-          (Array.isArray(authors)) && (authors.map((author) => (
-            <div key={author} className="book-authors">
-              {author}
-            </div>
-          )))
-        }
+        <div className="book-title">{ bookDict.title }</div>
+        <div className='book-authors'>{Array.isArray(authors) ? authors.join(', ') : ''}</div> {/*join authors by commas*/}
       </div>
     )
   }
