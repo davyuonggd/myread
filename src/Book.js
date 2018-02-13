@@ -23,13 +23,14 @@ class Book extends Component {
     // console.log('bookTitle: ', bookDict.title)
     const bookShelf = bookDict.shelf ? bookDict.shelf : "none"
     // console.log('bookShelf: ', bookShelf)
+    const backgroundImageUrl = (bookDict.imageLinks && bookDict.imageLinks.thumbnail) ? bookDict.imageLinks.thumbnail : 'http://via.placeholder.com/128x193?text=No%20Cover'
 
     return (
       <div className="book">
         <div className="book-top">
           <div
             className="book-cover"
-            style={{ width: 128, height: 193, backgroundImage: `url(${ bookDict.imageLinks.thumbnail })` }}>
+            style={{ width: 128, height: 193, backgroundImage: `url(${ backgroundImageUrl })` }}>
           </div>
           <div className="book-shelf-changer">
             <select value={bookShelf} onChange={this.onSelectShelf}>
