@@ -19,7 +19,7 @@ class BooksApp extends React.Component {
   }
 
   updatedBooks = (book) => {
-    let currentBooks = this.state.books
+    let currentBooks = [...this.state.books]
     const index = currentBooks.findIndex(b => b.id === book.id)
     if (index < 0) {
       return null
@@ -46,7 +46,8 @@ class BooksApp extends React.Component {
 
   updateBooksStateWithCreatedBook = (book) => {
     const shelf = book.shelf
-    let currentBooks = this.state.books
+    // let currentBooks = this.state.books //object is assigned by reference, and we are going to manipulate this object, so we should not do this.
+    const currentBooks = [...this.state.books] //using `spread syntax` to create a copy of the array, so we don't manipulate the state directly. More information about spread syntax can be found here: https://developer.mozilla.org/es/docs/Web/JavaScript/Reference/Operators/Spread_syntax
 
     BooksAPI.update(book, shelf).then((response) => {
       // console.log('update call response: ', response)

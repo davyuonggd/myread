@@ -56,7 +56,7 @@ class CreateBook extends Component {
 
   render() {
     const { onCreatedBook } = this.props
-    let foundBooks = this.state.foundBooks
+    let foundBooks = [...this.state.foundBooks] //clone foundBooks
     // console.log('foundBooks to render: ', foundBooks)
     this.updateShelvesOfFoundBooks(foundBooks)
 
